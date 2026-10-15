@@ -1,0 +1,250 @@
+{
+ "belt_speed": 0.02,
+ "trays": 6,
+ "pieces": 16,
+ "cut": 16,
+ "missed": 0,
+ "never_reached": 0,
+ "passed": 16,
+ "pass_rate_of_all_pieces": 1.0,
+ "sim_seconds": 263.9,
+ "wall_seconds": 488.2,
+ "per_tray": {
+  "T000": {
+   "done": 1,
+   "missed": 0,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 1
+  },
+  "T001": {
+   "done": 1,
+   "missed": 0,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 1
+  },
+  "T002": {
+   "done": 5,
+   "missed": 0,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 5
+  },
+  "T003": {
+   "done": 1,
+   "missed": 0,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 1
+  },
+  "T004": {
+   "done": 3,
+   "missed": 0,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 3
+  },
+  "T005": {
+   "done": 5,
+   "missed": 0,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 5
+  }
+ },
+ "cuts": [
+  {
+   "tray": "T000",
+   "piece": "p0",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.36,
+   "max_lateral_err_mm": 0.53,
+   "max_tilt_deg": 0.83,
+   "cut_s": 7.7
+  },
+  {
+   "tray": "T001",
+   "piece": "p0",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.926,
+   "pass": true,
+   "max_depth_err_mm": 1.29,
+   "max_lateral_err_mm": 19.58,
+   "max_tilt_deg": 1.22,
+   "cut_s": 7.6
+  },
+  {
+   "tray": "T002",
+   "piece": "p0",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 0.98,
+   "pass": true,
+   "max_depth_err_mm": 1.99,
+   "max_lateral_err_mm": 0.82,
+   "max_tilt_deg": 0.66,
+   "cut_s": 6.2
+  },
+  {
+   "tray": "T002",
+   "piece": "p1",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.989,
+   "pass": true,
+   "max_depth_err_mm": 1.65,
+   "max_lateral_err_mm": 0.58,
+   "max_tilt_deg": 0.47,
+   "cut_s": 7.7
+  },
+  {
+   "tray": "T002",
+   "piece": "p2",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.4,
+   "max_lateral_err_mm": 0.73,
+   "max_tilt_deg": 1.03,
+   "cut_s": 6.2
+  },
+  {
+   "tray": "T002",
+   "piece": "p3",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.995,
+   "pass": true,
+   "max_depth_err_mm": 1.88,
+   "max_lateral_err_mm": 0.79,
+   "max_tilt_deg": 0.58,
+   "cut_s": 7.5
+  },
+  {
+   "tray": "T002",
+   "piece": "p4",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.969,
+   "pass": true,
+   "max_depth_err_mm": 0.78,
+   "max_lateral_err_mm": 7.49,
+   "max_tilt_deg": 0.65,
+   "cut_s": 7.7
+  },
+  {
+   "tray": "T003",
+   "piece": "p0",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.99,
+   "pass": true,
+   "max_depth_err_mm": 1.28,
+   "max_lateral_err_mm": 4.29,
+   "max_tilt_deg": 1.05,
+   "cut_s": 11.4
+  },
+  {
+   "tray": "T004",
+   "piece": "p0",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.62,
+   "max_lateral_err_mm": 0.56,
+   "max_tilt_deg": 0.47,
+   "cut_s": 5.7
+  },
+  {
+   "tray": "T004",
+   "piece": "p1",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 0.981,
+   "pass": true,
+   "max_depth_err_mm": 1.93,
+   "max_lateral_err_mm": 0.67,
+   "max_tilt_deg": 0.35,
+   "cut_s": 6.3
+  },
+  {
+   "tray": "T004",
+   "piece": "p2",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.977,
+   "pass": true,
+   "max_depth_err_mm": 0.74,
+   "max_lateral_err_mm": 14.9,
+   "max_tilt_deg": 1.29,
+   "cut_s": 11.7
+  },
+  {
+   "tray": "T005",
+   "piece": "p0",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.969,
+   "pass": true,
+   "max_depth_err_mm": 0.39,
+   "max_lateral_err_mm": 6.48,
+   "max_tilt_deg": 0.88,
+   "cut_s": 7.0
+  },
+  {
+   "tray": "T005",
+   "piece": "p1",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.99,
+   "pass": true,
+   "max_depth_err_mm": 0.36,
+   "max_lateral_err_mm": 2.39,
+   "max_tilt_deg": 0.97,
+   "cut_s": 7.9
+  },
+  {
+   "tray": "T005",
+   "piece": "p2",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.41,
+   "max_lateral_err_mm": 0.47,
+   "max_tilt_deg": 0.3,
+   "cut_s": 7.1
+  },
+  {
+   "tray": "T005",
+   "piece": "p3",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.46,
+   "max_lateral_err_mm": 0.65,
+   "max_tilt_deg": 0.47,
+   "cut_s": 5.9
+  },
+  {
+   "tray": "T005",
+   "piece": "p4",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.86,
+   "max_lateral_err_mm": 0.31,
+   "max_tilt_deg": 0.95,
+   "cut_s": 6.0
+  }
+ ]
+}

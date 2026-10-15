@@ -1,0 +1,226 @@
+{
+ "belt_speed": 0.02,
+ "trays": 6,
+ "pieces": 16,
+ "cut": 12,
+ "missed": 4,
+ "never_reached": 0,
+ "passed": 12,
+ "pass_rate_of_all_pieces": 0.75,
+ "sim_seconds": 266.2,
+ "wall_seconds": 330.0,
+ "per_tray": {
+  "T000": {
+   "done": 1,
+   "missed": 0,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 1
+  },
+  "T001": {
+   "done": 1,
+   "missed": 0,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 1
+  },
+  "T002": {
+   "done": 4,
+   "missed": 1,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 4
+  },
+  "T003": {
+   "done": 0,
+   "missed": 1,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 0
+  },
+  "T004": {
+   "done": 2,
+   "missed": 1,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 2
+  },
+  "T005": {
+   "done": 4,
+   "missed": 1,
+   "pending": 0,
+   "active": 0,
+   "in_tolerance": 4
+  }
+ },
+ "cuts": [
+  {
+   "tray": "T000",
+   "piece": "p0",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.34,
+   "max_lateral_err_mm": 0.63,
+   "max_tilt_deg": 1.02,
+   "cut_s": 7.7
+  },
+  {
+   "tray": "T001",
+   "piece": "p0",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.957,
+   "pass": true,
+   "max_depth_err_mm": 0.63,
+   "max_lateral_err_mm": 14.4,
+   "max_tilt_deg": 1.16,
+   "cut_s": 7.6
+  },
+  {
+   "tray": "T002",
+   "piece": "p0",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 0.98,
+   "pass": true,
+   "max_depth_err_mm": 1.88,
+   "max_lateral_err_mm": 0.81,
+   "max_tilt_deg": 0.85,
+   "cut_s": 6.2
+  },
+  {
+   "tray": "T002",
+   "piece": "p1",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.989,
+   "pass": true,
+   "max_depth_err_mm": 1.6,
+   "max_lateral_err_mm": 0.5,
+   "max_tilt_deg": 0.48,
+   "cut_s": 7.7
+  },
+  {
+   "tray": "T002",
+   "piece": "p2",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.5,
+   "max_lateral_err_mm": 0.6,
+   "max_tilt_deg": 0.99,
+   "cut_s": 6.2
+  },
+  {
+   "tray": "T002",
+   "piece": "p3",
+   "kind": "long",
+   "status": "missed"
+  },
+  {
+   "tray": "T002",
+   "piece": "p4",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.969,
+   "pass": true,
+   "max_depth_err_mm": 0.76,
+   "max_lateral_err_mm": 8.91,
+   "max_tilt_deg": 0.6,
+   "cut_s": 7.7
+  },
+  {
+   "tray": "T003",
+   "piece": "p0",
+   "kind": "long",
+   "status": "missed"
+  },
+  {
+   "tray": "T004",
+   "piece": "p0",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.64,
+   "max_lateral_err_mm": 0.55,
+   "max_tilt_deg": 0.47,
+   "cut_s": 5.7
+  },
+  {
+   "tray": "T004",
+   "piece": "p1",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 0.981,
+   "pass": true,
+   "max_depth_err_mm": 1.77,
+   "max_lateral_err_mm": 0.69,
+   "max_tilt_deg": 0.58,
+   "cut_s": 6.3
+  },
+  {
+   "tray": "T004",
+   "piece": "p2",
+   "kind": "long",
+   "status": "missed"
+  },
+  {
+   "tray": "T005",
+   "piece": "p0",
+   "kind": "long",
+   "status": "missed"
+  },
+  {
+   "tray": "T005",
+   "piece": "p1",
+   "kind": "long",
+   "status": "done",
+   "in_tolerance_fraction": 0.99,
+   "pass": true,
+   "max_depth_err_mm": 0.39,
+   "max_lateral_err_mm": 2.16,
+   "max_tilt_deg": 1.08,
+   "cut_s": 7.9
+  },
+  {
+   "tray": "T005",
+   "piece": "p2",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.41,
+   "max_lateral_err_mm": 0.63,
+   "max_tilt_deg": 0.51,
+   "cut_s": 7.1
+  },
+  {
+   "tray": "T005",
+   "piece": "p3",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.48,
+   "max_lateral_err_mm": 0.68,
+   "max_tilt_deg": 0.48,
+   "cut_s": 5.9
+  },
+  {
+   "tray": "T005",
+   "piece": "p4",
+   "kind": "round",
+   "status": "done",
+   "in_tolerance_fraction": 1.0,
+   "pass": true,
+   "max_depth_err_mm": 0.88,
+   "max_lateral_err_mm": 0.26,
+   "max_tilt_deg": 0.94,
+   "cut_s": 6.0
+  }
+ ]
+}

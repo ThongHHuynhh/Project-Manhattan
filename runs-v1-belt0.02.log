@@ -1,0 +1,189 @@
+[3gH    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H   [INFO] Using python from: /home/zadmin/IsaacLab/_isaac_sim/python.sh
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: /home/zadmin/IsaacLab/apps/isaaclab.python.headless.kit
+Loading user config located at: '/home/zadmin/isaacsim/kit/data/Kit/Isaac-Sim/5.1/user.config.json'
+[Info] [carb] Logging to file: /home/zadmin/isaacsim/kit/logs/Kit/Isaac-Sim/5.1/kit_20261006_173335.log
+2026-10-06T21:33:36Z [404ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-10-06T21:33:36Z [870ms] [Warning] [omni.platforminfo.plugin] failed to open the default display.  Can't verify X Server version.
+2026-10-06T21:33:37Z [1,455ms] [Warning] [carb] Acquiring non optional plugin interface which is not listed as dependency: [omni::physx::IPhysxBenchmarks v1.0] (plugin: <default plugin>), by client: omni.physics.physx.plugin. Add it to CARB_PLUGIN_IMPL_DEPS() macro of a client.
+2026-10-06T21:33:37Z [1,470ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 580.173.02    | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce RTX 3090          | Yes: 0 |     | 24576   MB | 10de      | 0          |
+|     |                                  |        |     |            | 2204      | 6dedb513.. |
+|     |                                  |        |     |            | 41        |            |
+|=============================================================================================|
+| OS: 24.04.3 LTS (Noble Numbat) ubuntu, Version: 24.04.3, Kernel: 7.0.0-34-generic
+| Processor: Intel(R) Core(TM) i9-7980XE CPU @ 2.60GHz
+| Cores: 18 | Logical Cores: 36
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 31762 | Free Memory: 13133
+| Total Page/Swap (MB): 8191 | Free Page/Swap: 7689
+|---------------------------------------------------------------------------------------------|
+2026-10-06T21:33:45Z [9,129ms] [Warning] [gpu.foundation.plugin] CPU performance profile is set to powersave. This profile sets the CPU to the lowest frequency reducing performance.
+2026-10-06T21:33:45Z [9,139ms] [Warning] [gpu.foundation.plugin] IOMMU is enabled.
+2026-10-06T21:33:45Z [9,195ms] [Warning] [omni.kvdb.plugin] Disabling key-value database because another kit process is locking it
+[line] 6 trays, 16 pieces, belt 20 mm/s
+2026-10-06T21:33:47Z [11,323ms] [Warning] [omni.fabric.plugin] removePath called on non-existent path /World/CutPlan/Cut_02 
+
+[line] simulation ready in 1.4s
+[line] sim    2.0s  wall    4.6s  belt    39.4 mm
+[line] sim    4.0s  wall    8.3s  belt    79.3 mm
+[line] sim    6.0s  wall   11.7s  belt   119.3 mm
+[line] t=   7.5s photoeye T000: 1 pieces queued
+[line] sim    8.0s  wall   15.2s  belt   159.4 mm
+[line] sim   10.0s  wall   18.6s  belt   199.4 mm
+[line] sim   12.0s  wall   22.1s  belt   239.4 mm
+[line] sim   14.0s  wall   25.5s  belt   279.4 mm
+[line] sim   16.0s  wall   29.0s  belt   319.3 mm
+[line] sim   18.0s  wall   32.4s  belt   359.3 mm
+[line] sim   20.0s  wall   35.9s  belt   399.3 mm
+[line] sim   22.0s  wall   39.4s  belt   439.3 mm
+[line] sim   24.0s  wall   42.8s  belt   479.3 mm
+[line] sim   26.0s  wall   46.3s  belt   519.3 mm
+[line] sim   28.0s  wall   49.7s  belt   559.3 mm
+[line] sim   30.0s  wall   53.1s  belt   599.3 mm
+[line] sim   32.0s  wall   56.6s  belt   639.3 mm
+[line] sim   34.0s  wall   60.0s  belt   679.3 mm
+[line] sim   36.0s  wall   63.5s  belt   719.3 mm
+[line] sim   38.0s  wall   66.9s  belt   759.3 mm
+[line] sim   40.0s  wall   70.4s  belt   799.3 mm
+[line] sim   42.0s  wall   73.8s  belt   839.3 mm
+[line] sim   44.0s  wall   77.3s  belt   879.3 mm
+[line] t=  45.0s photoeye T001: 1 pieces queued
+[line] sim   46.0s  wall   80.9s  belt   919.3 mm
+[line] sim   48.0s  wall   85.8s  belt   959.3 mm
+[line] sim   50.0s  wall   89.2s  belt   999.3 mm
+[line] sim   52.0s  wall   93.1s  belt  1039.3 mm
+[line] sim   54.0s  wall   97.2s  belt  1079.3 mm
+[line] sim   56.0s  wall  101.1s  belt  1119.3 mm
+[line] sim   58.0s  wall  105.1s  belt  1159.3 mm
+[line] t=  58.1s T000/p0 (long): 100% in tolerance, depth max 0.36 mm, lateral max 0.53 mm, tilt max 0.83 deg -> PASS
+[line] sim   60.0s  wall  108.6s  belt  1199.3 mm
+[line] sim   62.0s  wall  112.1s  belt  1239.3 mm
+[line] sim   64.0s  wall  116.1s  belt  1279.3 mm
+[line] sim   66.0s  wall  120.0s  belt  1319.3 mm
+[line] sim   68.0s  wall  124.0s  belt  1359.3 mm
+[line] t=  69.1s T001/p0 (long): 93% in tolerance, depth max 1.29 mm, lateral max 19.58 mm, tilt max 1.22 deg -> PASS
+[line] sim   70.0s  wall  127.7s  belt  1399.3 mm
+[line] sim   72.0s  wall  131.2s  belt  1439.3 mm
+[line] sim   74.0s  wall  134.6s  belt  1479.3 mm
+[line] sim   76.0s  wall  138.1s  belt  1519.3 mm
+[line] sim   78.0s  wall  141.5s  belt  1559.3 mm
+[line] sim   80.0s  wall  144.9s  belt  1599.3 mm
+[line] sim   82.0s  wall  148.4s  belt  1639.3 mm
+[line] t=  82.5s photoeye T002: 5 pieces queued
+[line] sim   84.0s  wall  151.8s  belt  1679.3 mm
+[line] sim   86.0s  wall  155.3s  belt  1719.3 mm
+[line] sim   88.0s  wall  158.7s  belt  1759.3 mm
+[line] sim   90.0s  wall  162.2s  belt  1799.3 mm
+[line] sim   92.0s  wall  165.6s  belt  1839.3 mm
+[line] sim   94.0s  wall  169.1s  belt  1879.3 mm
+[line] sim   96.0s  wall  172.5s  belt  1919.3 mm
+[line] sim   98.0s  wall  176.0s  belt  1959.3 mm
+[line] sim  100.0s  wall  179.4s  belt  1999.3 mm
+[line] sim  102.0s  wall  182.9s  belt  2039.3 mm
+[line] sim  104.0s  wall  186.3s  belt  2079.3 mm
+[line] sim  106.0s  wall  189.8s  belt  2119.3 mm
+[line] sim  108.0s  wall  193.2s  belt  2159.4 mm
+[line] sim  110.0s  wall  196.7s  belt  2199.4 mm
+[line] sim  112.0s  wall  200.1s  belt  2239.4 mm
+[line] sim  114.0s  wall  203.9s  belt  2279.4 mm
+[line] sim  116.0s  wall  207.9s  belt  2319.4 mm
+[line] sim  118.0s  wall  211.9s  belt  2359.4 mm
+[line] t= 118.7s T002/p0 (round): 98% in tolerance, depth max 1.99 mm, lateral max 0.82 mm, tilt max 0.66 deg -> PASS
+[line] t= 120.0s photoeye T003: 1 pieces queued
+[line] sim  120.0s  wall  215.6s  belt  2399.4 mm
+[line] sim  122.0s  wall  219.4s  belt  2439.4 mm
+[line] sim  124.0s  wall  223.4s  belt  2479.4 mm
+[line] sim  126.0s  wall  227.4s  belt  2519.4 mm
+[line] t= 127.7s T002/p3 (long): 100% in tolerance, depth max 1.88 mm, lateral max 0.79 mm, tilt max 0.58 deg -> PASS
+[line] sim  128.0s  wall  231.3s  belt  2559.4 mm
+[line] sim  130.0s  wall  234.8s  belt  2599.4 mm
+[line] sim  132.0s  wall  238.7s  belt  2639.4 mm
+[line] sim  134.0s  wall  242.7s  belt  2679.4 mm
+[line] sim  136.0s  wall  246.7s  belt  2719.4 mm
+[line] t= 137.1s T002/p4 (long): 97% in tolerance, depth max 0.78 mm, lateral max 7.49 mm, tilt max 0.65 deg -> PASS
+[line] sim  138.0s  wall  250.4s  belt  2759.4 mm
+[line] sim  140.0s  wall  253.9s  belt  2799.4 mm
+[line] sim  142.0s  wall  257.8s  belt  2839.4 mm
+[line] sim  144.0s  wall  261.8s  belt  2879.4 mm
+[line] sim  146.0s  wall  265.7s  belt  2919.4 mm
+[line] t= 147.6s T002/p1 (long): 99% in tolerance, depth max 1.65 mm, lateral max 0.58 mm, tilt max 0.47 deg -> PASS
+[line] sim  148.0s  wall  269.6s  belt  2959.4 mm
+[line] sim  150.0s  wall  273.0s  belt  2999.4 mm
+[line] sim  152.0s  wall  276.9s  belt  3039.4 mm
+[line] sim  154.0s  wall  280.9s  belt  3079.4 mm
+[line] sim  156.0s  wall  284.9s  belt  3119.4 mm
+[line] t= 156.3s T002/p2 (round): 100% in tolerance, depth max 0.4 mm, lateral max 0.73 mm, tilt max 1.03 deg -> PASS
+[line] t= 157.5s photoeye T004: 3 pieces queued
+[line] sim  158.0s  wall  288.4s  belt  3159.4 mm
+[line] sim  160.0s  wall  291.9s  belt  3199.4 mm
+[line] sim  162.0s  wall  295.3s  belt  3239.4 mm
+[line] sim  164.0s  wall  299.2s  belt  3279.4 mm
+[line] sim  166.0s  wall  303.2s  belt  3319.4 mm
+[line] sim  168.0s  wall  307.2s  belt  3359.4 mm
+[line] sim  170.0s  wall  311.2s  belt  3399.4 mm
+[line] sim  172.0s  wall  315.1s  belt  3439.4 mm
+[line] t= 173.5s T003/p0 (long): 99% in tolerance, depth max 1.28 mm, lateral max 4.29 mm, tilt max 1.05 deg -> PASS
+[line] sim  174.0s  wall  319.0s  belt  3479.4 mm
+[line] sim  176.0s  wall  322.4s  belt  3519.4 mm
+[line] sim  178.0s  wall  325.9s  belt  3559.4 mm
+[line] sim  180.0s  wall  329.3s  belt  3599.4 mm
+[line] sim  182.0s  wall  332.8s  belt  3639.4 mm
+[line] sim  184.0s  wall  336.2s  belt  3679.4 mm
+[line] sim  186.0s  wall  339.7s  belt  3719.4 mm
+[line] sim  188.0s  wall  343.1s  belt  3759.4 mm
+[line] sim  190.0s  wall  346.6s  belt  3799.4 mm
+[line] sim  192.0s  wall  350.1s  belt  3839.4 mm
+[line] sim  194.0s  wall  354.1s  belt  3879.4 mm
+[line] t= 195.0s photoeye T005: 5 pieces queued
+[line] sim  196.0s  wall  358.1s  belt  3919.4 mm
+[line] t= 197.8s T004/p1 (round): 98% in tolerance, depth max 1.93 mm, lateral max 0.67 mm, tilt max 0.35 deg -> PASS
+[line] sim  198.0s  wall  362.0s  belt  3959.4 mm
+[line] sim  200.0s  wall  365.7s  belt  3999.4 mm
+[line] sim  202.0s  wall  369.6s  belt  4039.4 mm
+[line] sim  204.0s  wall  373.6s  belt  4079.4 mm
+[line] sim  206.0s  wall  377.5s  belt  4119.4 mm
+[line] sim  208.0s  wall  381.4s  belt  4159.4 mm
+[line] sim  210.0s  wall  385.4s  belt  4199.4 mm
+[line] t= 211.0s T004/p2 (long): 98% in tolerance, depth max 0.74 mm, lateral max 14.9 mm, tilt max 1.29 deg -> PASS
+[line] sim  212.0s  wall  389.1s  belt  4239.4 mm
+[line] sim  214.0s  wall  392.9s  belt  4279.4 mm
+[line] sim  216.0s  wall  396.8s  belt  4319.4 mm
+[line] sim  218.0s  wall  400.8s  belt  4359.4 mm
+[line] t= 218.3s T004/p0 (round): 100% in tolerance, depth max 0.62 mm, lateral max 0.56 mm, tilt max 0.47 deg -> PASS
+[line] sim  220.0s  wall  404.4s  belt  4399.4 mm
+[line] sim  222.0s  wall  408.0s  belt  4439.4 mm
+[line] sim  224.0s  wall  412.0s  belt  4479.4 mm
+[line] sim  226.0s  wall  416.0s  belt  4519.4 mm
+[line] sim  228.0s  wall  419.9s  belt  4559.4 mm
+[line] t= 228.1s T005/p2 (round): 100% in tolerance, depth max 0.41 mm, lateral max 0.47 mm, tilt max 0.3 deg -> PASS
+[line] sim  230.0s  wall  423.4s  belt  4599.4 mm
+[line] sim  232.0s  wall  427.2s  belt  4639.4 mm
+[line] sim  234.0s  wall  431.1s  belt  4679.4 mm
+[line] sim  236.0s  wall  435.0s  belt  4719.4 mm
+[line] sim  238.0s  wall  438.9s  belt  4759.4 mm
+[line] t= 238.3s T005/p1 (long): 99% in tolerance, depth max 0.36 mm, lateral max 2.39 mm, tilt max 0.97 deg -> PASS
+[line] sim  240.0s  wall  442.5s  belt  4799.4 mm
+[line] sim  242.0s  wall  446.2s  belt  4839.4 mm
+[line] sim  244.0s  wall  450.1s  belt  4879.4 mm
+[line] sim  246.0s  wall  454.1s  belt  4919.4 mm
+[line] t= 247.8s T005/p0 (long): 97% in tolerance, depth max 0.39 mm, lateral max 6.48 mm, tilt max 0.88 deg -> PASS
+[line] sim  248.0s  wall  458.0s  belt  4959.4 mm
+[line] sim  250.0s  wall  461.6s  belt  4999.4 mm
+[line] sim  252.0s  wall  465.5s  belt  5039.4 mm
+[line] sim  254.0s  wall  469.5s  belt  5079.4 mm
+[line] t= 255.3s T005/p3 (round): 100% in tolerance, depth max 0.46 mm, lateral max 0.65 mm, tilt max 0.47 deg -> PASS
+[line] sim  256.0s  wall  473.3s  belt  5119.4 mm
+[line] sim  258.0s  wall  476.8s  belt  5159.4 mm
+[line] sim  260.0s  wall  480.7s  belt  5199.4 mm
+[line] sim  262.0s  wall  484.6s  belt  5239.4 mm
+[line] t= 263.9s T005/p4 (round): 100% in tolerance, depth max 0.86 mm, lateral max 0.31 mm, tilt max 0.95 deg -> PASS
+[line] RESULT 16/16 pieces cut in tolerance (0 missed, 0 not reached) in 263.9 s -> /home/zadmin/TH/Project-Manhattan/runs/v1-belt0.02

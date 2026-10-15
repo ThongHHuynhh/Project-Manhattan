@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>K2 Dough Scoring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: technical manual — fixed contents rail, one reading column; tables, code and the diagram scroll in place. */
+:root {
+  --bg: #f4f5f2;
+  --surface: #ffffff;
+  --ink: #1b1f1d;
+  --muted: #5a645f;
+  --line: #d6dbd6;
+  --accent: #b5512a;        /* knife / cut colour */
+  --accent-soft: #f6e6dd;
+  --steel: #3c6e8f;         /* robot / sim colour */
+  --steel-soft: #e2edf3;
+  --ok: #2f7a4d; --ok-soft: #e1f1e7;
+  --warn: #9a6400; --warn-soft: #faefd8;
+  --code-bg: #eef0ec;
+  --k: #8a3fa0; --s: #2f6f2f; --c: #6b7570; --n: #b0501f; --t: #2b6a99;
+  --display: "Barlow Semi Condensed", "Arial Narrow", Arial, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121514; --surface: #1a1f1d; --ink: #e4e8e5; --muted: #9aa49f; --line: #2c3431;
+    --accent: #e98a5f; --accent-soft: #3a2419; --steel: #7fb2d3; --steel-soft: #1a2a35;
+    --ok: #6fcf97; --ok-soft: #173425; --warn: #f0b764; --warn-soft: #3a2c15;
+    --code-bg: #0e1110; --k: #d29ce8; --s: #9bd59b; --c: #7f8a85; --n: #f0a070; --t: #8cc4f0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121514; --surface: #1a1f1d; --ink: #e4e8e5; --muted: #9aa49f; --line: #2c3431;
+  --accent: #e98a5f; --accent-soft: #3a2419; --steel: #7fb2d3; --steel-soft: #1a2a35;
+  --ok: #6fcf97; --ok-soft: #173425; --warn: #f0b764; --warn-soft: #3a2c15;
+  --code-bg: #0e1110; --k: #d29ce8; --s: #9bd59b; --c: #7f8a85; --n: #f0a070; --t: #8cc4f0;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); }
+.wrap { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 48px; max-width: 1240px; margin: 0 auto; padding-inline: 24px; padding-block: 40px 96px; }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px); align-self: start; font-size: 14px; max-height: calc(100vh - 40px); overflow: auto; }
+nav.toc p { font: 600 11px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+nav.toc ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 5px; }
+nav.toc a { color: var(--muted); text-decoration: none; }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent); }
+main { min-width: 0; max-width: 820px; }
+header.top { display: grid; gap: 12px; padding-bottom: 26px; border-bottom: 2px solid var(--ink); }
+.eyebrow { font: 600 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(34px, 5vw, 50px)/1.02 var(--display); margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+h2 { font: 700 28px/1.15 var(--display); margin: 56px 0 12px; text-wrap: balance; scroll-margin-top: 20px; }
+h3 { font: 700 19px/1.3 var(--display); margin: 30px 0 8px; letter-spacing: .01em; }
+p, li { max-width: 70ch; }
+.lede { font-size: 18px; color: var(--muted); margin: 0; }
+footer.doc-foot { margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 20px; font: 13px var(--mono); color: var(--muted); }
+a { color: var(--steel); }
+code { font: 13.5px var(--mono); background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 24px 0 4px; }
+.fact { border-left: 3px solid var(--accent); padding: 2px 0 2px 12px; }
+.fact b { display: block; font: 700 20px/1.2 var(--display); }
+.fact span { font-size: 14px; color: var(--muted); }
+.code { position: relative; background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; margin: 12px 0 18px; }
+.code pre { margin: 0; overflow-x: auto; padding: 14px 16px; font: 13px/1.55 var(--mono); }
+.code pre code { background: none; padding: 0; overflow-wrap: normal; }
+.code .file { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 7px 10px 7px 16px; border-bottom: 1px solid var(--line); font: 12px var(--mono); color: var(--muted); }
+.copy { font: 600 12px var(--body); color: var(--steel); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.copy:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; margin: 14px 0; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+th { font: 600 12px var(--body); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td code { white-space: nowrap; }
+.num { font-variant-numeric: tabular-nums; }
+.note { border-left: 3px solid var(--warn); background: var(--warn-soft); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+.note b { color: var(--warn); }
+.good { border-left: 3px solid var(--ok); background: var(--ok-soft); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+ol.log { list-style: none; padding: 0; margin: 16px 0; counter-reset: s; }
+ol.log li { counter-increment: s; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); max-width: none; }
+ol.log li::before { content: counter(s, decimal-leading-zero); font: 600 13px/28px var(--mono); color: var(--accent); }
+ol.log p { margin: 0; }
+.fix { color: var(--ok); font-weight: 600; }
+.pill { display: inline-block; font: 600 11px/1 var(--body); letter-spacing: .05em; text-transform: uppercase; padding: 4px 7px; border-radius: 99px; background: var(--steel-soft); color: var(--steel); white-space: nowrap; }
+.pill.todo { background: var(--warn-soft); color: var(--warn); }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.tree { font: 13px/1.6 var(--mono); }
+.diagram { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 12px; margin: 14px 0; }
+.diagram svg { display: block; min-width: 900px; width: 100%; height: auto; }
+.d-box { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+.d-steel { fill: var(--steel-soft); stroke: var(--steel); stroke-width: 1.5; }
+.d-cut { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.d-ok { fill: var(--ok-soft); stroke: var(--ok); stroke-width: 1.5; }
+.d-band { fill: none; stroke: var(--line); stroke-dasharray: 5 5; }
+.d-t { fill: var(--ink); font: 600 13px var(--body); }
+.d-s { fill: var(--muted); font: 11.5px var(--mono); }
+.d-h { fill: var(--muted); font: 600 11px var(--body); letter-spacing: .1em; text-transform: uppercase; }
+.d-arrow { stroke: var(--ink); stroke-width: 1.4; fill: none; marker-end: url(#arr); }
+.d-arrow2 { stroke: var(--accent); stroke-width: 1.6; fill: none; marker-end: url(#arr2); }
+#arr path { fill: var(--ink); } #arr2 path { fill: var(--accent); }
+sup.r a { font: 600 11px var(--mono); text-decoration: none; color: var(--accent); }
+.refs .ref { scroll-margin-top: 20px; }
+.ref h3 { font: 600 14px var(--mono); margin: 24px 0 2px; overflow-wrap: anywhere; }
+.ref p { margin: 0 0 4px; color: var(--muted); font-size: 14.5px; }
+.hljs-keyword, .hljs-literal { color: var(--k); } .hljs-string { color: var(--s); }
+.hljs-comment { color: var(--c); font-style: italic; } .hljs-number { color: var(--n); }
+.hljs-title, .hljs-built_in, .hljs-meta, .hljs-attr, .hljs-params { color: var(--t); }
+@media (max-width: 900px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-inline: 16px; padding-block: 24px 64px; }
+  nav.toc { position: static; max-height: none; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; background: var(--surface); }
+  nav.toc ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#glance">At a glance</a></li>
+    <li><a href="#arch">Architecture</a></li>
+    <li><a href="#steps">What was built, step by step</a></li>
+    <li><a href="#launch">Launch reference</a></li>
+    <li><a href="#tuning">How to tune</a></li>
+    <li><a href="#runtime">Line runtime</a></li>
+    <li><a href="#deploy">Deploying to the real line</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#improve">Known limits</a></li>
+    <li><a href="#refs">Code references</a></li>
+  </ol>
+</nav>
+<main>
+
+<header class="top" id="glance">
+  <span class="eyebrow">K2 line · robotic scoring · PPO</span>
+  <h1>K2 Dough Scoring</h1>
+  <p class="lede">An ABB IRB 1200 with an ultrasonic knife scores every dough piece on trays that pass back to back on a moving belt. Cut lines come from each piece's 3D shape; a PPO policy steers the knife tip; a scheduler fed by encoder ticks decides what to cut next. Everything here runs in Isaac Sim / Isaac Lab on the GPU box.</p>
+  <div class="meta"><span>~/TH/Project-Manhattan</span><span>Isaac Sim 5.1 · Isaac Lab 2.3.0 · rsl_rl 3.0.1</span><span>RTX 3090 24 GB</span><span>2026-10-07</span></div>
+</header>
+
+<div class="facts">
+  <div class="fact"><b>3 mm ±1 mm</b><span>score depth below the real top surface; ±2 mm sideways; blade &lt;5° from vertical</span></div>
+  <div class="fact"><b>50 mm/s</b><span>cut speed; belt 0–30 mm/s in training</span></div>
+  <div class="fact"><b>16 / 16</b><span>pieces cut in tolerance at 20 mm/s, 6 trays back to back (v1)</span></div>
+  <div class="fact"><b>14 / 16</b><span>at 30 mm/s, the edge of v1's training range</span></div>
+</div>
+
+<h2 id="arch">Architecture</h2>
+<p>Three stages: build the scene and the training data once, train the policy, then run the line. The line runtime only talks to the outside world through two interfaces — encoder ticks and tray messages — so the same code can later be fed by the real PLC and AI_CORE<sup class="r"><a href="#ref-encoder">[8]</a></sup><sup class="r"><a href="#ref-sched">[9]</a></sup>.</p>
+<div class="diagram" role="img" aria-label="Pipeline: offline build of scene and cut library, Isaac Lab training with PPO, line runtime with encoder, photoeye, scheduler, IK transit and policy">
+<svg viewBox="0 0 1120 560" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker>
+  </defs>
+  <!-- bands -->
+  <rect class="d-band" x="10" y="10" width="330" height="540" rx="10"/>
+  <rect class="d-band" x="360" y="10" width="330" height="540" rx="10"/>
+  <rect class="d-band" x="710" y="10" width="400" height="540" rx="10"/>
+  <text class="d-h" x="26" y="34">1 · Build once</text>
+  <text class="d-h" x="376" y="34">2 · Train (Isaac Lab)</text>
+  <text class="d-h" x="726" y="34">3 · Line runtime (006 scene)</text>
+  <!-- build -->
+  <rect class="d-box" x="26" y="52" width="298" height="58" rx="8"/>
+  <text class="d-t" x="40" y="76">K2-CV-STEP-005-SDG.usd + knife CAD</text>
+  <text class="d-s" x="40" y="96">tn__00RB025COG2_pGu4 (ATI 9120 plate)</text>
+  <rect class="d-steel" x="26" y="140" width="298" height="58" rx="8"/>
+  <text class="d-t" x="40" y="164">kinematics.py · knife.json</text>
+  <text class="d-s" x="40" y="184">FK/IK from URDF, TCP = blade tip</text>
+  <rect class="d-steel" x="26" y="228" width="298" height="58" rx="8"/>
+  <text class="d-t" x="40" y="252">reach_study.py → build_006.py</text>
+  <text class="d-s" x="40" y="272">knife on tool0, tray at x = 0.65 m</text>
+  <rect class="d-box" x="26" y="316" width="298" height="58" rx="8"/>
+  <text class="d-t" x="40" y="340">DoughSDG dough generator</text>
+  <text class="d-s" x="40" y="360">plugins/dough_procedural.py</text>
+  <rect class="d-cut" x="26" y="404" width="298" height="58" rx="8"/>
+  <text class="d-t" x="40" y="428">build_path_library.py · cut_paths.py</text>
+  <text class="d-s" x="40" y="448">2,610 cuts + IK start poses</text>
+  <rect class="d-box" x="26" y="480" width="298" height="50" rx="8"/>
+  <text class="d-t" x="40" y="503">K2-CV-STEP-006-CUT.usd</text>
+  <text class="d-s" x="40" y="520">scene for the line runner</text>
+  <path class="d-arrow" d="M175 110 V138"/>
+  <path class="d-arrow" d="M175 198 V226"/>
+  <path class="d-arrow" d="M175 374 V402"/>
+  <path class="d-arrow" d="M100 286 C 60 380, 60 450, 60 478"/>
+  <!-- train -->
+  <rect class="d-cut" x="376" y="96" width="298" height="96" rx="8"/>
+  <text class="d-t" x="390" y="120">cut_env.py — CutEnv (1,024 envs)</text>
+  <text class="d-s" x="390" y="140">robot only · reference at 50 mm/s</text>
+  <text class="d-s" x="390" y="158">belt 0–30 mm/s via encoder ticks</text>
+  <text class="d-s" x="390" y="176">32 obs · 6 actions · IK on the TCP</text>
+  <rect class="d-steel" x="376" y="236" width="298" height="70" rx="8"/>
+  <text class="d-t" x="390" y="260">train_cut_ppo.py — rsl_rl PPO</text>
+  <text class="d-s" x="390" y="280">256-256-128 ELU · 48 steps/env</text>
+  <text class="d-s" x="390" y="296">~1.4 s/iteration · 1,500 iterations</text>
+  <rect class="d-ok" x="376" y="350" width="298" height="70" rx="8"/>
+  <text class="d-t" x="390" y="374">exported/policy.pt + env_cfg.json</text>
+  <text class="d-s" x="390" y="394">TorchScript actor + normaliser</text>
+  <text class="d-s" x="390" y="410">settings it was trained with</text>
+  <path class="d-arrow" d="M324 433 C 350 433, 350 150, 374 150"/>
+  <path class="d-arrow" d="M525 192 V234"/>
+  <path class="d-arrow" d="M525 306 V348"/>
+  <!-- runtime -->
+  <rect class="d-box" x="726" y="52" width="180" height="58" rx="8"/>
+  <text class="d-t" x="740" y="76">Belt encoder</text>
+  <text class="d-s" x="740" y="96">32-bit ticks, wraps</text>
+  <rect class="d-box" x="916" y="52" width="180" height="58" rx="8"/>
+  <text class="d-t" x="930" y="76">Photoeye</text>
+  <text class="d-s" x="930" y="96">tray message (JSON)</text>
+  <rect class="d-steel" x="726" y="140" width="370" height="70" rx="8"/>
+  <text class="d-t" x="740" y="164">scheduler.py — CutScheduler</text>
+  <text class="d-s" x="740" y="184">earliest deadline first · IK check</text>
+  <text class="d-s" x="740" y="200">misses reported, never guessed</text>
+  <rect class="d-steel" x="726" y="240" width="370" height="58" rx="8"/>
+  <text class="d-t" x="740" y="264">transit (IK, ≤0.35 m/s) to approach point</text>
+  <text class="d-s" x="740" y="284">tray_runner.move_to</text>
+  <rect class="d-cut" x="726" y="328" width="370" height="58" rx="8"/>
+  <text class="d-t" x="740" y="352">policy cuts (tray_runner.run_cut)</text>
+  <text class="d-s" x="740" y="372">same obs as training → TCP move → IK</text>
+  <rect class="d-box" x="726" y="416" width="370" height="50" rx="8"/>
+  <text class="d-t" x="740" y="446">ABB IRB 1200 joint targets (sim / later EGM)</text>
+  <rect class="d-ok" x="726" y="490" width="370" height="46" rx="8"/>
+  <text class="d-t" x="740" y="518">report.json · run.mp4 · live window</text>
+  <path class="d-arrow" d="M816 110 V138"/>
+  <path class="d-arrow" d="M1006 110 V138"/>
+  <path class="d-arrow" d="M911 210 V238"/>
+  <path class="d-arrow" d="M911 298 V326"/>
+  <path class="d-arrow" d="M911 386 V414"/>
+  <path class="d-arrow" d="M911 466 V488"/>
+  <path class="d-arrow2" d="M674 385 C 700 385, 700 357, 724 357"/>
+  <path class="d-arrow" d="M324 505 C 520 505, 600 470, 724 455"/>
+</svg>
+</div>
+
+<h2 id="steps">What was built, step by step</h2>
+<ol class="log">
+  <li><p><b>Found and measured the knife.</b> The tool is <code>tn__00RB025COG2_pGu4</code> inside the A-900023 CAD assembly (93 meshes, ~40 × 31 × 31 cm, scaled ×39 from inches). Rendered it isolated; the first automatic mount guess landed on the splash-guard rim, <span class="fix">fixed</span> by using the ATI 9120 tool-changer plate (<code>Solid5</code>, 60 mm) as the flange face. TCP = blade tip; blade 2.5 mm × 25.5 mm, 32° off the flange axis<sup class="r"><a href="#ref-knife">[1]</a></sup>.</p></li>
+  <li><p><b>Robot kinematics.</b> Forward kinematics from <code>USD/ABB-IRB1200.urdf</code> with the side-mounted base (0.225, 0, 1.961 m, +90° about Y); checked against the scene: tool0 at (1.114, 0, 1.428) m at zero joints. Numeric damped-least-squares IK on the TCP pose.</p></li>
+  <li><p><b>Reach study.</b> The camera-station tray (x = −1.43 m) is out of reach. Solved IK for a 7 × 7 grid over the tray, blade vertical, cutting along and across the belt: the whole tray is reachable for tray positions x = 0.4–0.9 m → station at 0.65 m<sup class="r"><a href="#ref-reach">[2]</a></sup>.</p></li>
+  <li><p><b>Scene 006.</b> <code>K2-CV-STEP-006-CUT.usd</code> from 005 (004/005 untouched, checked by checksum). Copying the knife failed because it is defined in the referenced CAD file, <span class="fix">fixed</span> by referencing it from that file onto <code>tool0</code>; the floating knife is deactivated; TCP marker prim added; tray moved to the station (belt top 0.914 m, tray bottom 0.915 m)<sup class="r"><a href="#ref-b006">[3]</a></sup>.</p></li>
+  <li><p><b>Cut lines.</b> From each piece's mesh: long pieces (aspect &gt; 1.4) along their length, round ones along the belt; middle 80%; 3 mm under the top surface (exact, from the mesh triangles) every 5 mm; approach/retract 3 cm above<sup class="r"><a href="#ref-cuts">[4]</a></sup>. You asked to use the procedural dough generator rather than RealSense crops, so pieces come from DoughSDG.</p></li>
+  <li><p><b>Training library.</b> 900 random trays (1–5 pieces, long and round, any rotation) across the reach window → 2,610 cuts with IK start poses (36 unreachable or too long dropped)<sup class="r"><a href="#ref-lib">[5]</a></sup>.</p></li>
+  <li><p><b>Encoder and adaptive scheduling (your requirements).</b> Trays arrive back to back with any number of pieces; belt position only from 32-bit encoder ticks; one JSON message per tray at the photoeye; earliest-deadline-first scheduling with misses reported<sup class="r"><a href="#ref-encoder">[8]</a></sup><sup class="r"><a href="#ref-sched">[9]</a></sup>.</p></li>
+  <li><p><b>RL environment.</b> Isaac Lab DirectRLEnv, robot only (the 80 MB factory is not cloned). The reference point travels the cut line at 50 mm/s while the line drifts with the belt; PPO outputs knife-tip moves that differential IK turns into joint targets<sup class="r"><a href="#ref-env">[6]</a></sup>.</p></li>
+  <li><p><b>Feasibility check.</b> A scripted follower through the same IK kept 93% of cut steps in tolerance (errors at the plunge corner) — the task is achievable; PPO has room to anticipate the corner.</p></li>
+  <li><p><b>Training v1.</b> 1,024 envs, 1,500 iterations, ~36 min: 98.1% of cut steps in tolerance, 97.5% of cuts ≥90% in tolerance. Episode “success” stayed at 0: the policy learned not to finish because finishing ended its reward (reward hacking) — handled in the runner<sup class="r"><a href="#ref-train">[7]</a></sup>.</p></li>
+  <li><p><b>Line runner bugs found and fixed.</b> Idle loop never advanced the simulation once the robot was home (<span class="fix">fixed</span>: always step); Isaac Sim hung in <code>close()</code> after the report was written (<span class="fix">fixed</span>: exit directly); stale runner processes from timeouts (killed); the first scheduler window (0.40–0.95 m) missed 4/16 pieces (<span class="fix">fixed</span>: training-coverage window 0.05–1.10 m + IK check)<sup class="r"><a href="#ref-runner">[10]</a></sup>.</p></li>
+  <li><p><b>Viewing and tuning.</b> Live window with planned (yellow) and actual (red) cut lines and <code>--hold</code>; reward weights and settings exposed as <code>--env KEY=VALUE</code>, saved as <code>env_cfg.json</code> next to the policy and loaded by the runner.</p></li>
+</ol>
+
+<h2 id="launch">Launch reference</h2>
+<p>Training and the line runner use Isaac Lab's launcher (<code>~/IsaacLab/isaaclab.sh -p</code>); the build scripts use Isaac Sim's Python (<code>~/_isaac_sim/python.sh</code>). Isaac Lab adds its own options to both launchers (for example <code>--headless</code>, <code>--device</code>, <code>--enable_cameras</code>).</p>
+<div class="code"><div class="file"><span>set once per terminal</span><button class="copy" type="button">Copy</button></div><pre><code class="language-bash">N=~/TH/Project-Manhattan
+POLICY=$N/logs/dough_cut/v1/exported/policy.pt
+cd ~/IsaacLab</code></pre></div>
+
+<h3>tray_runner.py — run the line (watch, evaluate, record)</h3>
+<div class="tbl"><table>
+<thead><tr><th>Option</th><th>Default</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>--policy</code></td><td>required</td><td>exported <code>policy.pt</code>; its <code>env_cfg.json</code> is loaded automatically</td></tr>
+<tr><td><code>--trays</code></td><td class="num">4</td><td>trays spawned back to back upstream</td></tr>
+<tr><td><code>--min_pieces</code> / <code>--max_pieces</code></td><td class="num">1 / 5</td><td>pieces per tray (random in range)</td></tr>
+<tr><td><code>--belt_speed</code></td><td class="num">0.02</td><td>m/s (v1 trained 0–0.03)</td></tr>
+<tr><td><code>--counts_per_m</code></td><td class="num">10000</td><td>encoder resolution (training used 10,000)</td></tr>
+<tr><td><code>--photoeye_x</code></td><td class="num">−0.10</td><td>belt x of the photoeye (m)</td></tr>
+<tr><td><code>--gap</code></td><td class="num">0.05</td><td>m between trays</td></tr>
+<tr><td><code>--seed</code></td><td class="num">0</td><td>tray contents</td></tr>
+<tr><td><code>--max_time</code></td><td class="num">900</td><td>simulated seconds limit</td></tr>
+<tr><td><code>--out</code></td><td><code>runs/&lt;time&gt;</code></td><td>report folder</td></tr>
+<tr><td><code>--video</code></td><td>off</td><td>save frames + <code>run.mp4</code> (15 fps)</td></tr>
+<tr><td><code>--hold</code></td><td>off</td><td>with a window: keep it open after the run</td></tr>
+<tr><td><code>--no_paths</code></td><td>off</td><td>hide planned (yellow) / actual (red) cut lines</td></tr>
+<tr><td><code>--scene</code></td><td>006</td><td>scene file</td></tr>
+<tr><td><code>--headless</code></td><td>off</td><td>Isaac Lab option: no window (for SSH / batch)</td></tr>
+</tbody></table></div>
+<div class="code"><div class="file"><span>watch live on the GPU box desktop (all viewing options)</span><button class="copy" type="button">Copy</button></div><pre><code class="language-bash">./isaaclab.sh -p $N/tray_runner.py --policy $POLICY \
+    --trays 4 --min_pieces 2 --max_pieces 5 --belt_speed 0.02 --seed 7 \
+    --photoeye_x -0.10 --gap 0.05 --counts_per_m 10000 \
+    --hold --out $N/runs/watch-seed7</code></pre></div>
+<div class="code"><div class="file"><span>evaluate over SSH and record a video</span><button class="copy" type="button">Copy</button></div><pre><code class="language-bash">./isaaclab.sh -p $N/tray_runner.py --headless --policy $POLICY \
+    --trays 6 --belt_speed 0.03 --seed 11 --max_time 900 --video --out $N/runs/eval-30mms
+cat $N/runs/eval-30mms/report.json | head -20</code></pre></div>
+<div class="code"><div class="file"><span>speed sweep (headless)</span><button class="copy" type="button">Copy</button></div><pre><code class="language-bash">for v in 0.01 0.02 0.03; do
+  ./isaaclab.sh -p $N/tray_runner.py --headless --policy $POLICY --trays 6 --seed 11 \
+      --belt_speed $v --out $N/runs/sweep-$v | grep RESULT
+done</code></pre></div>
+
+<h3>train_cut_ppo.py — train a policy</h3>
+<div class="tbl"><table>
+<thead><tr><th>Option</th><th>Default</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>--num_envs</code></td><td class="num">1024</td><td>parallel robots (3090: 1,024 ≈ 1.4 s/iteration)</td></tr>
+<tr><td><code>--max_iterations</code></td><td class="num">1500</td><td>PPO iterations</td></tr>
+<tr><td><code>--run_name</code></td><td>time stamp</td><td>folder under <code>logs/dough_cut/</code></td></tr>
+<tr><td><code>--resume</code></td><td>—</td><td>checkpoint to continue from (<code>model_N.pt</code>)</td></tr>
+<tr><td><code>--library</code></td><td><code>path_library.npz</code></td><td>cut library</td></tr>
+<tr><td><code>--env KEY=VALUE</code></td><td>—</td><td>override any field in <a href="#tuning">the tuning table</a>; repeatable</td></tr>
+<tr><td><code>--headless</code></td><td>off</td><td>Isaac Lab option: always use for training</td></tr>
+</tbody></table></div>
+<div class="code"><div class="file"><span>train a tuned run in the background (example)</span><button class="copy" type="button">Copy</button></div><pre><code class="language-bash">nohup ./isaaclab.sh -p $N/train_cut_ppo.py --headless --num_envs 1024 --max_iterations 2000 \
+    --run_name v1-tuned --env belt_speed_max=0.04 --env w_success=20 --env w_track_fine=1.5 \
+    > $N/logs/train-v1-tuned.log 2>&1 &
+grep -E "Learning iteration|cut_in_tolerance|cuts_90pct" $N/logs/train-v1-tuned.log | tail -3
+# continue v1 for 500 more iterations
+./isaaclab.sh -p $N/train_cut_ppo.py --headless --run_name v1b --max_iterations 500 \
+    --resume $N/logs/dough_cut/v1/model_1499.pt</code></pre></div>
+<p>The simple launcher does the same with environment variables: <code>RUN=v1-tuned ITERS=2000 NUM_ENVS=1024 $N/run_train.sh</code>.</p>
+
+<h3>Build and check scripts</h3>
+<div class="tbl"><table>
+<thead><tr><th>Script</th><th>Options (default)</th><th>When</th></tr></thead>
+<tbody>
+<tr><td><code>build_006.py</code></td><td><code>--src</code> (005) <code>--dst</code> (006) <code>--station-x 0.65</code> <code>--force</code></td><td>after changing 005 or the station position</td></tr>
+<tr><td><code>build_path_library.py</code></td><td><code>--trays 900 --seed 0 --window 0.35 0.80 --out path_library.npz</code></td><td>new product mix, station or reach window</td></tr>
+<tr><td><code>plan_cuts.py</code></td><td><code>--scene</code> (006) <code>--config</code> (DoughSDG default) <code>--seed</code> <code>--out cut_plan.json</code></td><td>draw a cut plan for the 006 tray</td></tr>
+<tr><td><code>reach_study.py</code></td><td>(path to this folder)</td><td>after moving the robot or changing the knife</td></tr>
+<tr><td><code>check_env.py</code></td><td><code>--num_envs 32 --episodes 64 --library</code></td><td>after changing the environment: is the task still feasible?</td></tr>
+</tbody></table></div>
+<div class="code"><div class="file"><span>rebuild everything from scratch</span><button class="copy" type="button">Copy</button></div><pre><code class="language-bash">~/_isaac_sim/python.sh $N/reach_study.py $N
+~/_isaac_sim/python.sh $N/build_006.py --station-x 0.65 --force
+~/_isaac_sim/python.sh $N/build_path_library.py --trays 900 --window 0.35 0.80
+./isaaclab.sh -p $N/check_env.py --headless --num_envs 32 --episodes 48
+~/_isaac_sim/python.sh $N/plan_cuts.py --seed 3</code></pre></div>
+
+<h2 id="tuning">How to tune</h2>
+<p>Every setting below is a <code>CutEnvCfg</code> field and can be set at launch with <code>--env KEY=VALUE</code>; the values used are saved with the policy and reused by the runner, so training and evaluation always match<sup class="r"><a href="#ref-cfg">[6a]</a></sup>.</p>
+<div class="tbl"><table>
+<thead><tr><th>Setting</th><th>v1</th><th>Raise it when…</th><th>Lower it when…</th></tr></thead>
+<tbody>
+<tr><td><code>belt_speed_max</code></td><td class="num">0.03</td><td>the line runs faster, or the 30 mm/s results are weak (train past the line speed, e.g. 0.04)</td><td>—</td></tr>
+<tr><td><code>cut_speed</code></td><td class="num">0.05</td><td>you need throughput (more pieces per tray at high belt speed)</td><td>depth errors grow</td></tr>
+<tr><td><code>counts_per_m</code></td><td class="num">10000</td><td colspan="2">set to the real encoder; retrain if far from 10,000</td></tr>
+<tr><td><code>tol_depth</code> / <code>tol_lateral</code> / <code>tol_tilt_deg</code></td><td>0.001 / 0.002 / 5</td><td colspan="2">change the quality spec (also the runner's pass mark)</td></tr>
+<tr><td><code>w_track_fine</code>, <code>track_fine_m</code></td><td>1.0, 0.002</td><td>cuts are close but not inside ±1 mm</td><td>learning stalls early (start wider)</td></tr>
+<tr><td><code>w_in_tol</code></td><td class="num">1.0</td><td>the tolerance pass rate lags the mean error</td><td>it chases the bonus with jerky motion</td></tr>
+<tr><td><code>w_rot</code>, <code>rot_rad</code></td><td>0.5, 0.05</td><td>blade tilt or sideways drift on cuts across the belt</td><td>—</td></tr>
+<tr><td><code>w_smooth</code>, <code>w_action</code></td><td>0.05, 0.01</td><td>motion is jittery</td><td>it lags the reference</td></tr>
+<tr><td><code>w_success</code></td><td class="num">5</td><td>“episode_success” stays 0 (v1 reward hacking): try 20+</td><td>—</td></tr>
+<tr><td><code>w_lost</code>, <code>lost_dist</code></td><td>5, 0.04</td><td>it gives up on hard cuts</td><td>—</td></tr>
+<tr><td><code>max_step_pos</code>, <code>max_step_rot</code></td><td>0.004, 0.03</td><td>it can't keep up at high belt speed</td><td>it overshoots</td></tr>
+<tr><td><code>start_noise</code></td><td class="num">0.01</td><td>for robustness to imperfect transit</td><td>—</td></tr>
+</tbody></table></div>
+<p><b>PPO knobs</b> live in <code>train_cut_ppo.py</code><sup class="r"><a href="#ref-train">[7]</a></sup>: more <code>--num_envs</code> (2,048 fits on the 3090) for smoother gradients; <code>init_noise_std</code> 0.6 → 0.4 if training is noisy at the end; <code>entropy_coef</code> down if the policy keeps jittering; <code>learning_rate</code> stays adaptive.</p>
+<p class="good"><b>Tuning loop.</b> Change one thing → <code>check_env.py</code> if you changed the environment → train 500 iterations → runner sweep at 0.01/0.02/0.03 m/s with the same seed → compare <code>report.json</code>. Keep the seed fixed so runs are comparable, then confirm on new seeds.</p>
+
+<h2 id="runtime">Line runtime</h2>
+<p>Per control step (30 Hz) <code>tray_runner.py</code> does what the line controller will do<sup class="r"><a href="#ref-runner">[10]</a></sup>:</p>
+<ol>
+  <li>Read the encoder; update belt position and speed (<code>BeltTracker</code>).</li>
+  <li>When a tray's front edge reaches the photoeye, latch the encoder count and send its tray message (pieces' cut lines in tray coordinates).</li>
+  <li>If idle: ask the scheduler for the next cut — among cuts that can still be finished inside x = 0.05–1.10 m, the one whose tray leaves first, accepted only if IK reaches its start now and its end after belt drift. Cuts that can no longer be finished are marked missed.</li>
+  <li>Transit to the moving approach point (≤0.35 m/s, ≤3° per step), then hand over to the policy with the same observations as training; the cut ends when the reference reaches the retract point and the tip is within 1.5 cm.</li>
+  <li>Score against the true geometry: per-cut % of steps in tolerance, max depth/sideways error, max tilt; pass at ≥90%.</li>
+</ol>
+
+<h2 id="deploy">Deploying to the real line</h2>
+<p>None of this has run on hardware yet. The pieces that change, in order:</p>
+<div class="tbl"><table>
+<thead><tr><th>Task</th><th>Current state</th><th>Recommended</th><th>Next step</th></tr></thead>
+<tbody>
+<tr><td>Belt position</td><td><code>SimBeltEncoder</code></td><td>class with the same <code>read() → EncoderReading(ticks, t)</code> reading the PLC encoder counter (OPC UA or fieldbus)</td><td>get counts/m and counter width from the PLC</td></tr>
+<tr><td>Tray messages</td><td>generated in sim</td><td>AI_CORE RealSense detections → cut lines in tray coordinates → JSON message at the photoeye</td><td>agree the message format (README) with AI_CORE</td></tr>
+<tr><td>Robot control</td><td>sim joint targets at 30 Hz</td><td>stream TCP or joint targets at ≥30 Hz, e.g. ABB Externally Guided Motion (EGM; a RobotWare option — check the controller has it)</td><td>confirm controller options; run the policy on the line PC</td></tr>
+<tr><td>Knife TCP</td><td>from CAD</td><td>calibrate the real TCP (e.g. 4-point TCP method on the teach pendant) and update <code>knife.json</code></td><td>measure on the robot</td></tr>
+<tr><td>Calibration</td><td>sim frames coincide</td><td>camera ↔ robot ↔ belt calibration so tray coordinates match the robot base frame</td><td>calibration target on a tray</td></tr>
+<tr><td>Safety</td><td>none in sim</td><td>speed/zone limits on the controller, collision check for the arm vs conveyor, e-stop interlocks</td><td>add arm/conveyor collision to the sim first</td></tr>
+<tr><td>Simpler baseline</td><td>—</td><td>for comparison: classic conveyor tracking with a scripted path (the scripted follower already kept 93% in tolerance)</td><td>decide whether RL beats it enough on the real line</td></tr>
+</tbody></table></div>
+
+<h2 id="results">Results</h2>
+<div class="tbl"><table>
+<thead><tr><th>Run</th><th>Pieces in tolerance</th><th>Missed</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Training v1 (library cuts)</td><td>97.5% of cuts ≥90% in tol.</td><td>—</td><td>98.1% of cut steps in tolerance</td></tr>
+<tr><td>Scripted follower (check)</td><td>93% of cut steps</td><td>—</td><td>feasibility baseline</td></tr>
+<tr><td>Line, 20 mm/s, 6 trays (<code>runs/v1-belt0.02</code>)</td><td><b>16 / 16</b></td><td>0</td><td>93–100% per cut; depth ≤2 mm; tilt ≤1.3°</td></tr>
+<tr><td>Line, 30 mm/s, 6 trays (<code>runs/v1-belt0.03</code>)</td><td>14 / 16</td><td>0</td><td>2 long pieces drifted sideways (59%, 83%)</td></tr>
+<tr><td>Line, 20 mm/s, first scheduler (<code>runs/v1-belt20-video</code>)</td><td>12 / 16</td><td>4</td><td>narrow window; has <code>run.mp4</code></td></tr>
+</tbody></table></div>
+<p class="note"><b>Small sample.</b> 16 pieces per run; confirm the pass rate on ~20 trays and several seeds before trusting it. Short sideways spikes of 5–21 mm appear on some long pieces at the plunge corner.</p>
+
+<h2 id="improve">Known limits</h2>
+<div class="tbl"><table>
+<thead><tr><th>Limit</th><th>Effect</th></tr></thead>
+<tbody>
+<tr><td>Belt speed trained 0–30 mm/s</td><td>14/16 at 30 mm/s; faster belts are outside what the policy has seen</td></tr>
+<tr><td>Fixed cut speed (50 mm/s) and depth (3 mm)</td><td>throughput is bounded; one depth for every piece</td></tr>
+<tr><td>Vertical plunge into the cut</td><td>short sideways spikes (5–21 mm) at the entry corner on some long pieces</td></tr>
+<tr><td>Episode ends on success</td><td>the policy never settles on the retract point (success 0%); the runner ends a cut within 1.5 cm instead</td></tr>
+<tr><td>Library built with the old surface method</td><td>the shipped <code>path_library.npz</code> has some cuts with dips (highest vertex within 4 mm); rebuilding uses the exact surface (<code>top_height</code>)</td></tr>
+<tr><td>Perfect sensing in sim</td><td>no encoder noise, latency or calibration error yet</td></tr>
+<tr><td>No collisions</td><td>knife and arm vs conveyor not checked</td></tr>
+<tr><td>Dough not simulated as a material</td><td>a cut is a geometric path, scored against the mesh</td></tr>
+<tr><td>Small evaluations</td><td>16 pieces per run; confirm on more trays and seeds</td></tr>
+</tbody></table></div>
+
+<h2 id="refs">Code references</h2>
+<p>Paths are on the GPU box. Nothing is pushed, so there are no web links.</p>
+<div class="refs">
+<div class="ref" id="ref-knife"><h3>[1] ~/TH/Project-Manhattan/kinematics.py:47 — Knife</h3><p>TCP frame from the measured knife: plate centred on tool0, z along the blade, x = cutting direction.</p>
+<div class="code"><pre><code class="language-python">z = -up / np.linalg.norm(up)                       # tool0 z points out of the flange, into the tool
+x = (tip - mount) - ((tip - mount) @ z) * z      # clocking: blade leans toward tool0 +x
+...
+self.p_tcp = R_world_tool.T @ (tip - mount)         # TCP position in tool0
+self.R_tcp = np.stack([w, np.cross(a, w), a], axis=1)  # TCP frame in tool0 (x cut dir, z blade)</code></pre></div></div>
+
+<div class="ref" id="ref-reach"><h3>[2] ~/TH/Project-Manhattan/reach_study.py:18 — tray positions along the belt</h3><p>IK over a 7 × 7 grid for each candidate station, both cut directions.</p>
+<div class="code"><pre><code class="language-python">for xs in np.arange(0.3, 1.55, 0.1):
+    ...
+            for name, options in dirs.items():
+                ...
+                        q, ok = ik(knife, target_rotation(d), p, s, iters=120)</code></pre></div></div>
+
+<div class="ref" id="ref-b006"><h3>[3] ~/TH/Project-Manhattan/build_006.py:57 — knife referenced onto tool0</h3><p>Referenced from the CAD file that defines it, then placed with the knife frame on the flange.</p>
+<div class="code"><pre><code class="language-python">knife_prim = stage.DefinePrim(dst_path, "Xform")
+knife_prim.GetReferences().AddReference(defs[0].layer.identifier, defs[0].path)
+...
+local = M_root * gf_frame(knife.R_world_tool, knife.mount).GetInverse()</code></pre></div></div>
+
+<div class="ref" id="ref-cuts"><h3>[4] ~/TH/Project-Manhattan/cut_paths.py:49 — piece_cut; top_height (25)</h3><p>Long vs round decision, middle 80%, surface height from the mesh, 3 mm deep.</p>
+<div class="code"><pre><code class="language-python">if ext_major / max(ext_minor, 1e-6) &gt; long_aspect:
+    d, kind = major, "long"
+else:
+    d, kind = np.asarray(belt_dir, float) / np.linalg.norm(belt_dir), "round"
+...
+z = top_height(P, faces[0], faces[1], line)   # exact top surface from the mesh triangles
+...
+poly, i0, i1 = cut_path(contour, direction, -depth, clearance)   # approach -> cut -> retract</code></pre></div></div>
+
+<div class="ref" id="ref-lib"><h3>[5] ~/TH/Project-Manhattan/build_path_library.py:1 — training library</h3><p>Random generator trays, one cut per piece, IK at both ends.</p>
+<div class="code"><pre><code class="language-python">q, ok = ik(knife, R, poly[0], seed_q[0])
+...
+q_end, ok_end = ik(knife, R, poly[-1], q)  # must also reach the far end</code></pre></div></div>
+
+<div class="ref" id="ref-env"><h3>[6] ~/TH/Project-Manhattan/cut_env.py:184 — CutEnv._state</h3><p>Reference along the path, belt drift, what the encoder reports, and the errors.</p>
+<div class="code"><pre><code class="language-python">disp = self.belt_speed * t
+disp_q = torch.floor(disp * self.cfg.counts_per_m) / self.cfg.counts_per_m  # what the encoder reports
+s = (self.cfg.cut_speed * (t - self.cfg.wait_s)).clamp(min=0.0)
+...
+target_w = origin + p + disp.unsqueeze(1) * self.ex
+target_obs_w = origin + p + disp_q.unsqueeze(1) * self.ex</code></pre></div></div>
+
+<div class="ref" id="ref-cfg"><h3>[6a] ~/TH/Project-Manhattan/cut_env.py:36 — CutEnvCfg; TUNABLE (87), apply_overrides (93)</h3><p>All settings and reward weights; <code>TUNABLE</code> lists what <code>--env</code> may change.</p>
+<div class="code"><pre><code class="language-python">cut_speed: float = 0.05  # m/s along the cut
+belt_speed_max: float = 0.03  # m/s, sampled 0..max per episode
+counts_per_m: float = 10000.0  # encoder resolution (0.1 mm/tick)
+...
+w_track_fine: float = 1.0  # cross-track (depth + sideways) error, scale track_fine_m</code></pre></div></div>
+
+<div class="ref" id="ref-ik"><h3>[6b] ~/TH/Project-Manhattan/cut_env.py:233 — CutEnv._apply_action</h3><p>Jacobian in the base frame, shifted to the knife tip, then DLS IK.</p>
+<div class="code"><pre><code class="language-python">J[:, :3] = J[:, :3] - torch.bmm(_skew(tcp_pos_b - ee_pos_b), J[:, 3:])  # jacobian of the knife tip
+q = self.robot.data.joint_pos[:, self.joint_ids]
+q_des = self.ik.compute(tcp_pos_b, tcp_quat_b, J, q).clamp(self.q_lo, self.q_hi)</code></pre></div></div>
+
+<div class="ref" id="ref-train"><h3>[7] ~/TH/Project-Manhattan/train_cut_ppo.py:39 — --env overrides, PPO config (44), env_cfg export (70)</h3><p>Overrides applied to the config; the settings used are saved next to the exported policy.</p>
+<div class="code"><pre><code class="language-python">apply_overrides(cfg, args.env)   # KEY=VALUE, only fields in TUNABLE
+...
+env_cfg = {k: getattr(cfg, k) for k in TUNABLE}
+with open(os.path.join(log_dir, "exported", "env_cfg.json"), "w") as f:  # the runner reads this next to policy.pt
+    json.dump(env_cfg, f, indent=1)</code></pre></div></div>
+
+<div class="ref" id="ref-encoder"><h3>[8] ~/TH/Project-Manhattan/encoder.py:18 — tick_delta, SimBeltEncoder (25), BeltTracker (44)</h3><p>Signed tick difference across the 32-bit wrap; the real encoder replaces <code>SimBeltEncoder.read()</code>.</p>
+<div class="code"><pre><code class="language-python">def tick_delta(new, old, bits=32):
+    """Signed tick difference that survives counter wrap-around."""
+    span = 1 &lt;&lt; bits
+    d = (new - old) % span
+    return d - span if d &gt;= span // 2 else d</code></pre></div></div>
+
+<div class="ref" id="ref-sched"><h3>[9] ~/TH/Project-Manhattan/scheduler.py:69 — CutScheduler.next_task</h3><p>Earliest deadline first among cuts that still fit in the window, each vetted by the IK check.</p>
+<div class="code"><pre><code class="language-python">for slack, t in sorted(candidates, key=lambda c: c[0]):
+    drift = v * (self.transit_s + t.length / self.cut_speed)
+    if check is None or check(t, self.world_poly(t, ticks), drift):
+        t.status = "active"
+        return t</code></pre></div></div>
+
+<div class="ref" id="ref-runner"><h3>[10] ~/TH/Project-Manhattan/tray_runner.py:265 — photoeye latch in physics_step (251); ik_check (236), move_to (285), run_cut (307), main loop (401)</h3><p>Photoeye latch at the fixed photoeye position, encoder-only tray position, live render.</p>
+<div class="code"><pre><code class="language-python">if not t["latched"] and tx + TRAY_L / 2 &gt;= args.photoeye_x:  # front edge reaches the photoeye
+    t["latched"] = True
+    reading = encoder.read()
+    sched.add_tray({"tray_id": t["id"], "latch_ticks": reading.ticks, "latch_x": args.photoeye_x - TRAY_L / 2,
+                    "pieces": t["pieces"]})</code></pre></div></div>
+</div>
+<footer class="doc-foot">Based on Thong Huynh's Documentation</footer>
+</main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+  try { window.hljs && document.querySelectorAll("pre code[class^='language-']").forEach(function (el) { hljs.highlightElement(el); }); } catch (e) {}
+  document.querySelectorAll(".copy").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var pre = btn.closest(".code").querySelector("pre");
+      var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy"; }, 1500); };
+      if (navigator.clipboard) { navigator.clipboard.writeText(pre.innerText).then(done, function () { select(pre, btn); }); }
+      else { select(pre, btn); }
+    });
+  });
+  function select(pre, btn) { var r = document.createRange(); r.selectNodeContents(pre); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Press Ctrl+C"; }
+</script>
+</body>
+</html>
